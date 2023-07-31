@@ -5,6 +5,7 @@ interface Post {
   id: string;
   title: string;
   content: string;
+  userId?: string | undefined;
 }
 
 const initialStateValue: Post[] = [
@@ -24,12 +25,13 @@ const postsSlice = createSlice({
       reducer(state, action: PayloadAction<Post>) {
         state.push(action.payload);
       },
-      prepare(title: string, content: string) {
+      prepare(title: string, content: string, userId: string) {
         return {
           payload: {
             id: nanoid(),
             title,
             content,
+            userId,
           },
         };
       },

@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNewPost } from "./postsSlice";
+import { selectAllUsers } from "../users/usersSlice";
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
+
+  const users = useSelector(selectAllUsers);
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -15,14 +19,20 @@ const AddPostForm = () => {
     setContent(e.target.value);
   };
 
+  const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserId(e.target.value);
+  };
+
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(addNewPost(title, content));
+      dispatch(addNewPost(title, content, userId));
 
       setTitle("");
       setContent("");
     }
   };
+
+  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
   return (
     <section>
@@ -36,6 +46,17 @@ const AddPostForm = () => {
           value={title}
           onChange={onTitleChanged}
         />
+        <label htmlFor="postAuthor">Author:</label>
+        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+          <option value=""></option>
+          {users.map((user) => {
+            return (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            );
+          })}
+        </select>
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"
@@ -43,7 +64,7 @@ const AddPostForm = () => {
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" onClick={onSavePostClicked}>
+        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
           Save Post
         </button>
       </form>
