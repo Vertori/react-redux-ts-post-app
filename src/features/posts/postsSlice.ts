@@ -7,7 +7,7 @@ interface Post {
   title: string;
   content: string;
   userId?: string | undefined;
-  date?: string;
+  date?: string | undefined;
 }
 
 const initialStateValue: Post[] = [
