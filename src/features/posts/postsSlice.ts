@@ -2,12 +2,21 @@ import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { sub } from "date-fns";
 
+export interface ReactionsType {
+  thumbsUp: number;
+  wow: number;
+  heart: number;
+  rocket: number;
+  coffee: number;
+}
+
 interface Post {
   id: string;
   title: string;
   content: string;
   userId?: string | undefined;
   date?: string | undefined;
+  reactions: ReactionsType;
 }
 
 const initialStateValue: Post[] = [
@@ -16,12 +25,26 @@ const initialStateValue: Post[] = [
     title: "Learning Redux Toolkit",
     content: "This is learning Redux Toolkit content!",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
   {
     id: "2",
     title: "Slices...",
     content: "This content is about slices...",
     date: sub(new Date(), { minutes: 5 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
 ];
 
@@ -41,13 +64,30 @@ const postsSlice = createSlice({
             content,
             date: new Date().toISOString(),
             userId,
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
           },
         };
       },
+    },
+    addReaction(
+      state,
+      action: PayloadAction<{ postId: string; reaction: keyof ReactionsType }>
+    ) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.find((post) => post.id === postId);
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
     },
   },
 });
 
 export const selectAllPosts = (state: RootState) => state.posts;
-export const { addNewPost } = postsSlice.actions;
+export const { addNewPost, addReaction } = postsSlice.actions;
 export default postsSlice.reducer;
