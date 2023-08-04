@@ -11,7 +11,7 @@ Basic app used to operate added posts, all operations are handled by <b>Redux</b
 
 ## Screenshots
 
-<img src="src/assets//appScreen.png"/>
+<img src="src/assets//appScreen.PNG"/>
 
 ## Tech Stack
 
