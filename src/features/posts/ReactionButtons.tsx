@@ -23,6 +23,7 @@ const ReactionButtons = ({ post }: ReactionButtonProps) => {
     return (
       <button
         key={name}
+        className="mt-2 pr-4"
         type="button"
         onClick={() =>
           dispatch(

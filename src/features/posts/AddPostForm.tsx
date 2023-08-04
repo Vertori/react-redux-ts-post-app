@@ -35,38 +35,68 @@ const AddPostForm = () => {
   const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
   return (
-    <section>
-      <h2>Add a New Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
-        <label htmlFor="postAuthor">Author:</label>
-        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-          <option value=""></option>
-          {users.map((user) => {
-            return (
-              <option key={user.id} value={user.id}>
-                {user.name}
-              </option>
-            );
-          })}
-        </select>
-        <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-        />
-        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
-          Save Post
-        </button>
+    <section className="max-w-[400px] w-full px-4">
+      <h2 className="text-2xl pb-4">Add a New Post</h2>
+      <form className="flex flex-col gap-y-4">
+        {/* post title  */}
+        <div className="flex flex-col gap-y-1">
+          <label htmlFor="postTitle" className="mr-2">
+            Post Title:
+          </label>
+          <input
+            type="text"
+            id="postTitle"
+            name="postTitle"
+            value={title}
+            onChange={onTitleChanged}
+            className="bg-gray-200 p-1.5"
+          />
+        </div>
+        {/* author  */}
+        <div className="flex flex-col gap-y-1">
+          <label htmlFor="postAuthor" className="mr-2">
+            Author:
+          </label>
+          <select
+            id="postAuthor"
+            value={userId}
+            onChange={onAuthorChanged}
+            className="bg-gray-200 p-1.5"
+          >
+            <option value=""></option>
+            {users.map((user) => {
+              return (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        {/* content  */}
+        <div className="flex flex-col gap-y-1">
+          <label htmlFor="postContent" className="mr-2">
+            Content:
+          </label>
+          <textarea
+            id="postContent"
+            name="postContent"
+            value={content}
+            onChange={onContentChanged}
+            className="bg-gray-200 p-1.5"
+          />
+        </div>
+        {/* button */}
+        <div className="mx-auto">
+          <button
+            type="button"
+            className="bg-blue-400 enabled:hover:bg-blue-300 px-6 py-2 font-semibold cursor-pointer disabled:cursor-default disabled:opacity-25"
+            onClick={onSavePostClicked}
+            disabled={!canSave}
+          >
+            Save Post
+          </button>
+        </div>
       </form>
     </section>
   );

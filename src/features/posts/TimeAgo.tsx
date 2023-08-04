@@ -13,7 +13,7 @@ const TimeAgo = ({ timestamp }: Props) => {
   }
 
   return (
-    <span title={timestamp}>
+    <span title={timestamp} className="text-sm">
       &nbsp; <i>{timeAgo}</i>
     </span>
   );

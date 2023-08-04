@@ -22,8 +22,8 @@ interface Post {
 const initialStateValue: Post[] = [
   {
     id: "1",
-    title: "Learning Redux Toolkit",
-    content: "This is learning Redux Toolkit content!",
+    title: "First Default Post",
+    content: "This is first default post!",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
     reactions: {
       thumbsUp: 0,
@@ -35,8 +35,8 @@ const initialStateValue: Post[] = [
   },
   {
     id: "2",
-    title: "Slices...",
-    content: "This content is about slices...",
+    title: "Second Default Post",
+    content: "This is second default post...",
     date: sub(new Date(), { minutes: 5 }).toISOString(),
     reactions: {
       thumbsUp: 0,

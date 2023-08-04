@@ -12,12 +12,12 @@ const PostsList = () => {
     .sort((a, b) => (b.date && a.date ? b.date.localeCompare(a.date) : 0));
 
   return (
-    <section>
-      <h2>Posts</h2>
+    <section className="flex flex-col max-w-[400px] w-full px-4">
+      <h2 className="text-2xl pb-4">Posts</h2>
       {orderedPosts.map((post) => {
         return (
-          <article key={post.id}>
-            <h3>{post.title}</h3>
+          <article key={post.id} className="mb-4 bg-gray-200 shadow-md p-4">
+            <h3 className="font-medium">{post.title}</h3>
             <p>{post.content.substring(0, 100)}</p>
 
             <PostAuthor userId={post.userId} />

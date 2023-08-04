@@ -11,7 +11,11 @@ const PostAuthor = ({ userId }: Props) => {
 
   const author = users.find((user) => user.id === userId);
 
-  return <span>by {author ? author.name : "Unknown Author"}</span>;
+  return (
+    <span className="text-sm">
+      by {author ? author.name : "Unknown Author"}
+    </span>
+  );
 };
 
 export default PostAuthor;
